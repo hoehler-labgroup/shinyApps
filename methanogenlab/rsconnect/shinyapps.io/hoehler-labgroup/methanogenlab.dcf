@@ -1,0 +1,11 @@
+name: methanogenlab
+title: methanogenlab
+username:
+account: hoehler-labgroup
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4848395
+bundleId: 5128871
+url: https://hoehler-labgroup.shinyapps.io/methanogenlab/
+when: 1633998949.57868
+lastSyncTime: 1633998949.57868
