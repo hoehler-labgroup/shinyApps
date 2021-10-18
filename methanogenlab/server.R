@@ -2,7 +2,8 @@ library(shiny)
 library(ggplot2)
 library(CHNOSZ)
 library(methanogenlab)
-
+gridlinecolor <- "grey80"
+gridlinecolorminor <- "grey100"
 function(input, output) {
 
   dataset <- reactive({
@@ -21,21 +22,15 @@ function(input, output) {
 
   output$plot <- renderPlot({
 
-    p <- ggplot(dataset(), aes(x=get(input$x), y=get(input$y))) + geom_point()+
+    p <- ggplot(dataset(), aes(x=get(input$x), y=get(input$y))) + geom_line(size=1)+ geom_point(size=2)+
       xlab(input$x)+
-      ylab(input$y)
-
-    # if (input$color != 'None')
-    #   p <- p + aes_string(color=input$color)
-    #
-    # facets <- paste(input$facet_row, '~', input$facet_col)
-    # if (facets != '. ~ .')
-    #   p <- p + facet_grid(facets)
-    #
-    # if (input$jitter)
-    #   p <- p + geom_jitter()
-    # if (input$smooth)
-    #   p <- p + geom_smooth()
+      ylab(input$y)+
+      theme(panel.border = element_rect(fill=NA, size=1),
+            axis.text = element_text(colour="black", size =10),
+            panel.background = element_blank(), 
+            axis.title = element_text(colour="black", size =14,face="bold"),
+            panel.grid.major = element_line(colour = gridlinecolor),
+            panel.grid.minor = element_line(colour = gridlinecolorminor))
 
     print(p)
 

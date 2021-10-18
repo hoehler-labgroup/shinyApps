@@ -2,7 +2,6 @@ library(shiny)
 library(ggplot2)
 library(CHNOSZ)
 library(methanogenlab)
-
 dataset <- methanogenesis(CH4.initial = 1e-6,
                           K.CH4 = 0.00112896948941469,
                           H2.initial = 5e-4,
@@ -21,35 +20,30 @@ dataset <- methanogenesis(CH4.initial = 1e-6,
                           inoculum.cell.number = 0)
 
 fluidPage(
-
+#total widths must add to 12
   titlePanel("Methanogen Lab"),
-
+  
   sidebarPanel(
-
     numericInput('vol.soln','Volume Solution (mL)',value=80),
     numericInput('vol.head','Volume Headspace (mL)',value=20),
     numericInput('temperature','Temperature (C)',value = 40),
     numericInput('biomass.yield','Biomass Yield',value = 2.4),
-    sliderInput('ch4.initial','CH4 Initial',min=1e-6,max=1e-5,value = 1e-6,step = 1e-6),
-    sliderInput('h2.initial','H2 Initial',min = 1e-3,max = 1e-2,value = 1e-3,step = 1e-3),
-    sliderInput('dic.initial','DIC Initial',min = 1e-3,max = 1e-2,value = 1e-3,step = 1e-3),
+    selectInput('x', 'X', "DIC.consumed"),
+    selectInput('y', 'Y', names(dataset), "systempH.step"),
+    width = 2),
+  
+  sidebarPanel(
+    sliderInput('ch4.initial','CH4 Initial (uM)',min=1e-6,max=1e-5,value = 1e-6,step = 1e-6),
+    sliderInput('h2.initial','H2 Initial (mM)',min = 1e-4,max = 1e-2,value = 5e-4,step = 1e-4),
+    sliderInput('dic.initial','DIC Initial (mM)',min = 1e-3,max = 1e-2,value = 3.2e-3,step = 1e-3),
     sliderInput('ph.initial','pH Initial',min=0,max=14,value = 7.5,step = 0.1),
-    sliderInput('inoculum','Inoculum Cell Number',min = 0,max=1e10,step = 0.1e10,value = 1e5),
-    # sliderInput('sampleSize', 'Sample Size', min=1, max=nrow(dataset),
-    #             value=min(1000, nrow(dataset)), step=500, round=0),
-    #
-    selectInput('x', 'X', names(dataset)),
-    selectInput('y', 'Y', names(dataset), names(dataset)[[2]]),
-    # selectInput('color', 'Color', c('None', names(dataset))),
-    #
-    # checkboxInput('jitter', 'Jitter'),
-    # checkboxInput('smooth', 'Smooth'),
-    #
-    # selectInput('facet_row', 'Facet Row', c(None='.', names(dataset))),
-    # selectInput('facet_col', 'Facet Column', c(None='.', names(dataset)))
+    shinyWidgets::sliderTextInput('inoculum','Inoculum Cell Number',choices=c(0,1e2,1e3,1e4,1e5,1e6,1e7,1e8,1e9,1e10),selected = 0, grid = T),
+    width = 3
+
   ),
 
   mainPanel(
-    plotOutput('plot')
+    plotOutput('plot'),
+    width = 7
   )
 )

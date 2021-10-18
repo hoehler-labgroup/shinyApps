@@ -5,7 +5,10 @@ account: hoehler-labgroup
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 4848395
-bundleId: 5128871
+bundleId: 5151466
 url: https://hoehler-labgroup.shinyapps.io/methanogenlab/
-when: 1633998949.57868
-lastSyncTime: 1633998949.57868
+when: 1634583416.3984
+lastSyncTime: 1634583416.3984
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: README.md
